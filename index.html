@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Made US Great Again</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      body {
+        background: url("./clap.gif");
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        height: 100vh;
+      }
+    </style>
+    <script>
+      document.documentElement.addEventListener("click", function () {
+        document.body.innerHTML = `<iframe
+          id="vid"
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/UGXqmvqhqJs?si=g61bTrLZr1bou2Ba&amp;controls=0&amp;autoplay=1&amp;rel=0&amp;fs=0&amp;showinfo=0"
+          frameborder="0"
+          allow="autoplay; encrypted-media;"
+          referrerpolicy="strict-origin-when-cross-origin"
+          ></iframe>`;
+      });
+    </script>
+  </head>
+  <body></body>
+</html>
