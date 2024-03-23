@@ -20,6 +20,8 @@
         }
       }
       #container {
+        width: 100%;
+        max-width: 600px;
         display: none;
       }
     </style>
@@ -31,16 +33,18 @@
 
     <script>
       let player, ready;
-      var ytScript = document.createElement("script");
+      const ytScript = document.createElement("script");
       ytScript.src = "https://www.youtube.com/iframe_api";
       document.head.appendChild(ytScript);
       function onYouTubeIframeAPIReady() {
         player = new YT.Player("player", {
           videoId: "UGXqmvqhqJs",
+          width: "100%",
           playerVars: { controls: 0, rel: 0 },
           events: {
             onReady(event) {
               ready = true;
+              document.dispatchEvent(new Event("playerReady"));
             },
           },
         });
@@ -49,6 +53,11 @@
       document.documentElement.addEventListener("click", function () {
         document.getElementById("container").style.display = "block";
         if (ready) player.playVideo();
+        else {
+          document.addEventListener("playerReady", function () {
+            player.playVideo();
+          });
+        }
       });
     </script>
   </body>
