@@ -19,34 +19,36 @@
           background-size: 25vw;
         }
       }
+      #container {
+        display: none;
+      }
     </style>
   </head>
   <body>
-    <div id="player"></div>
+    <div id="container">
+      <div id="player"></div>
+    </div>
 
     <script>
+      let player, ready;
+      var ytScript = document.createElement("script");
+      ytScript.src = "https://www.youtube.com/iframe_api";
+      document.head.appendChild(ytScript);
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player("player", {
+          videoId: "UGXqmvqhqJs",
+          playerVars: { controls: 0, rel: 0 },
+          events: {
+            onReady(event) {
+              ready = true;
+            },
+          },
+        });
+      }
+
       document.documentElement.addEventListener("click", function () {
-        var ytScript = document.createElement("script");
-        ytScript.src = "https://www.youtube.com/iframe_api";
-        document.head.appendChild(ytScript);
-        function onYouTubeIframeAPIReady() {
-          new YT.Player("player", {
-            videoId: "UGXqmvqhqJs",
-            playerVars: {
-              autoplay: 1,
-              playsinline: 1,
-              controls: 0,
-              showinfo: 0,
-              rel: 0,
-            },
-            events: {
-              onReady(event) {
-                event.target.playVideo();
-              },
-            },
-          });
-        }
-        window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+        document.getElementById("container").style.display = "block";
+        if (ready) player.playVideo();
       });
     </script>
   </body>
