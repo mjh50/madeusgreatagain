@@ -7,26 +7,47 @@
     <style>
       body {
         background: url("./clap.gif");
+        background-size: 50vw;
         display: flex;
         justify-content: center;
         align-items: center;
         margin: 0;
         height: 100vh;
       }
+      @media (min-width: 768px) {
+        body {
+          background-size: 25vw;
+        }
+      }
     </style>
+  </head>
+  <body>
+    <div id="player"></div>
+
     <script>
       document.documentElement.addEventListener("click", function () {
-        document.body.innerHTML = `<iframe
-          id="vid"
-          width="560"
-          height="315"
-          src="https://www.youtube.com/embed/UGXqmvqhqJs?si=g61bTrLZr1bou2Ba&amp;controls=0&amp;autoplay=1&amp;rel=0&amp;fs=0&amp;showinfo=0"
-          frameborder="0"
-          allow="autoplay; encrypted-media;"
-          referrerpolicy="strict-origin-when-cross-origin"
-          ></iframe>`;
+        var ytScript = document.createElement("script");
+        ytScript.src = "https://www.youtube.com/iframe_api";
+        document.head.appendChild(ytScript);
+        function onYouTubeIframeAPIReady() {
+          new YT.Player("player", {
+            videoId: "UGXqmvqhqJs",
+            playerVars: {
+              autoplay: 1,
+              playsinline: 1,
+              controls: 0,
+              showinfo: 0,
+              rel: 0,
+            },
+            events: {
+              onReady(event) {
+                event.target.playVideo();
+              },
+            },
+          });
+        }
+        window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
       });
     </script>
-  </head>
-  <body></body>
+  </body>
 </html>
